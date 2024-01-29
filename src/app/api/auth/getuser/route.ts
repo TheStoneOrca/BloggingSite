@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 
-export default async function POST(Req: Request, Res: Response) {
+export async function POST(Req: Request, Res: Response) {
   try {
     type getUserDetails = {
       userJWT: string;
