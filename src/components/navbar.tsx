@@ -1,8 +1,22 @@
 import Link from "next/link";
 import SignInButton from "./signinbutton";
 import SignUpButton from "./signupbutton";
+import useSignedIn from "@/hooks/Signin";
+import { useEffect, useState } from "react";
 
 export default function Navbar() {
+  const { isReady, user, isSignedIn } = useSignedIn();
+  const [userData, setUser] = useState<object | null>();
+
+  useEffect(() => {
+    if (isReady) {
+      if (isSignedIn) {
+        setUser(user);
+      } else {
+        setUser(null);
+      }
+    }
+  }, [isReady]);
   return (
     <div className="w-full h-12 bg-[#32CD32] flex text-white">
       <div className="flex items-center">
