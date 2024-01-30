@@ -1,8 +1,11 @@
+"use client";
+
 import Link from "next/link";
 import SignInButton from "./signinbutton";
 import SignUpButton from "./signupbutton";
 import useSignedIn from "@/hooks/Signin";
 import { useEffect, useState } from "react";
+import SignoutButton from "./signoutbtn";
 
 export default function Navbar() {
   const { isReady, user, isSignedIn } = useSignedIn();
@@ -22,7 +25,7 @@ export default function Navbar() {
       <div className="flex items-center">
         <Link
           href="/home"
-          className="p-2 text-2xl hover:bg-green-400 h-12 ml-2 mr-2"
+          className="p-2 text-2xl hover:bg-green-400 h-12  mr-2"
         >
           Home
         </Link>
@@ -32,10 +35,16 @@ export default function Navbar() {
         >
           Blogs
         </Link>
-        <div className="absolute right-4 flex">
-          <SignUpButton />
-          <SignInButton />
-        </div>
+        {userData ? (
+          <div className="absolute right-4 flex">
+            <SignoutButton />
+          </div>
+        ) : (
+          <div className="absolute right-4 flex">
+            <SignUpButton />
+            <SignInButton />
+          </div>
+        )}
       </div>
     </div>
   );

@@ -4,9 +4,18 @@ import { useEffect, useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 
 export default function useSignedIn() {
+  type user = {
+    userid: number;
+    username: string;
+    password: string;
+    role: "member" | "admin" | "owner" | "poster";
+    email: string;
+    fname: string;
+    lname: string;
+  };
   type userData = {
     isReady: boolean;
-    user: object | null;
+    user: user | null;
     isSignedIn: boolean;
   };
   const [user, setUser] = useState<userData>({
@@ -20,7 +29,9 @@ export default function useSignedIn() {
       if (!secureLocalStorage.getItem("user_token")) return;
       fetch("/api/auth/getuser", {
         method: "POST",
-        body: JSON.stringify(secureLocalStorage.getItem("user_token")),
+        body: JSON.stringify({
+          userJWT: secureLocalStorage.getItem("user_token"),
+        }),
         headers: { "Content-Type": "application/json" },
       }).then((res) =>
         res.json().then((user) => {
@@ -35,6 +46,6 @@ export default function useSignedIn() {
       console.error(error);
       setUser({ isReady: true, user: null, isSignedIn: false });
     }
-  });
+  }, []);
   return user;
 }

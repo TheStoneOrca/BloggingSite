@@ -10,7 +10,7 @@ export async function POST(Req: Request, Res: Response) {
     if (!req.userJWT) {
       return NextResponse.json({
         status: 404,
-        errmsg: "Unexpected Error: Missing Details for Signup.",
+        errmsg: "Unexpected Error: Missing Details to Get User.",
       });
     }
     const user = jwt.verify(req.userJWT, process.env.JWT_SECRET as string);
