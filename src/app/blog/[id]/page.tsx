@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 type Blogs = {
   postid: number;
-  posttitle: string;
+  postitle: string;
   postauthor: string;
   postcontent: string;
   createdWhen: Date;
@@ -43,7 +43,15 @@ export default function BlogIdPage() {
   return (
     <div>
       {blogInfo ? (
-        <div dangerouslySetInnerHTML={{ __html: blogInfo.postcontent }}></div>
+        <div>
+          <div className="text-center text-5xl">
+            {blogInfo.postitle}
+            <div className="text-center text-2xl">{blogInfo.postauthor}</div>
+          </div>
+          <hr />
+          <br />
+          <div dangerouslySetInnerHTML={{ __html: blogInfo.postcontent }}></div>
+        </div>
       ) : (
         <h1>Loading....</h1>
       )}

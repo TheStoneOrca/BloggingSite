@@ -21,3 +21,9 @@
   font-size: 1.5em;
   font-weight: bolder;
 }
+
+.tiptap ul,
+ol {
+  list-style: disc;
+  padding: 0 1.4rem;
+}

@@ -1,23 +1,24 @@
 "use client";
 
+type user = {
+  userid: number;
+  username: string;
+  password: string;
+  role: "member" | "admin" | "owner" | "poster";
+  email: string;
+  fname: string;
+  lname: string;
+};
+type userData = {
+  isReady: boolean;
+  user: user | null;
+  isSignedIn: boolean;
+};
+
 import { useEffect, useState } from "react";
 import secureLocalStorage from "react-secure-storage";
 
 export default function useSignedIn() {
-  type user = {
-    userid: number;
-    username: string;
-    password: string;
-    role: "member" | "admin" | "owner" | "poster";
-    email: string;
-    fname: string;
-    lname: string;
-  };
-  type userData = {
-    isReady: boolean;
-    user: user | null;
-    isSignedIn: boolean;
-  };
   const [user, setUser] = useState<userData>({
     isReady: false,
     user: null,
@@ -26,7 +27,8 @@ export default function useSignedIn() {
 
   useEffect(() => {
     try {
-      if (!secureLocalStorage.getItem("user_token")) return;
+      if (secureLocalStorage.getItem("user_token") === null)
+        setUser({ isReady: true, user: null, isSignedIn: false });
       fetch("/api/auth/getuser", {
         method: "POST",
         body: JSON.stringify({
@@ -34,7 +36,7 @@ export default function useSignedIn() {
         }),
         headers: { "Content-Type": "application/json" },
       }).then((res) =>
-        res.json().then((user) => {
+        res.json().then((user: any) => {
           if (user.status === 200) {
             setUser({ isReady: true, user: user.user, isSignedIn: true });
           } else {

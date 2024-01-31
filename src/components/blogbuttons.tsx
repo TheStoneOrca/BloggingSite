@@ -4,6 +4,8 @@ import {
   faCode,
   faHeader,
   faItalic,
+  faList,
+  faRulerHorizontal,
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function BlogButtons({ editor }: any) {
@@ -51,6 +53,20 @@ export default function BlogButtons({ editor }: any) {
           className="mr-1"
         >
           <FontAwesomeIcon icon={faBold} />
+        </button>
+        <button
+          onClick={() => editor.chain().focus().setHorizontalRule().run()}
+          className="mr-1"
+          type="button"
+        >
+          <FontAwesomeIcon icon={faRulerHorizontal} />
+        </button>
+        <button
+          onClick={() => editor.chain().focus().toggleBulletList().run()}
+          className={editor.isActive("bulletList") ? "mr-1 bg-red-500" : "mr-1"}
+          type="button"
+        >
+          <FontAwesomeIcon icon={faList} />
         </button>
       </div>
     </div>
