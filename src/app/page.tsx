@@ -15,6 +15,7 @@ export default function BlogsPage() {
   const [blogs, setBlogs] = useState<Array<Blogs> | null>();
 
   useEffect(() => {
+    document.title = "blogs";
     try {
       fetch("/api/post", { method: "GET" }).then((data) =>
         data.json().then((blogs: { status: number; posts: Array<Blogs> }) => {

@@ -9,6 +9,10 @@ export default function BlogPostPage() {
   const [userdata, setUserData] = useState<object | null>();
 
   useEffect(() => {
+    document.title = "Post Blog";
+  }, []);
+
+  useEffect(() => {
     if (isReady) {
       if (isSignedIn) {
         if (user?.role === "member") {

@@ -28,6 +28,7 @@ export default function BlogIdPage() {
         data.json().then((blogData: FetchData) => {
           if (blogData.status === 200) {
             setBlogData(blogData.postDetails);
+            document.title = blogData.postDetails.postitle;
           } else {
             setBlogData(null);
             throw Error("Unexpected Error");
