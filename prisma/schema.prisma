@@ -25,6 +25,6 @@ model Posts {
   postid Int      @id @default(autoincrement())
   postitle String
   postauthor String
-  postcontent Json[]
+  postcontent String
   createdWhen DateTime
 }

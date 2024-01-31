@@ -11,6 +11,7 @@ import Heading from "@tiptap/extension-heading";
 import StarterKit from "@tiptap/starter-kit";
 import "./textareastyle.css";
 import BlogButtons from "./blogbuttons";
+import { useState } from "react";
 
 const content = `<h1>HI!</h1>`;
 const extensions = [
@@ -20,10 +21,13 @@ const extensions = [
   Heading.configure({ levels: [1, 2, 3, 4] }),
 ];
 
-export default function BlogTextArea() {
+export default function BlogTextArea({ setContent }: any) {
   const editor = useEditor({
     extensions,
     content,
+    onUpdate: ({ editor }) => {
+      setContent(editor.getHTML());
+    },
   });
 
   if (!editor) return null;
@@ -34,7 +38,7 @@ export default function BlogTextArea() {
         <BlogButtons editor={editor} />
       </div>
       <div className="flex justify-center">
-        <EditorContent editor={editor} />
+        <EditorContent editor={editor} name="content" />
       </div>
     </div>
   );

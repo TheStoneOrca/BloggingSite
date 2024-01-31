@@ -12,7 +12,7 @@ export default function BlogPostPage() {
     if (isReady) {
       if (isSignedIn) {
         if (user?.role === "member") {
-          window.location.href = "/";
+          // window.location.href = "/";
         }
         setUserData(user);
       } else {

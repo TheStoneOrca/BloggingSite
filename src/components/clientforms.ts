@@ -81,3 +81,36 @@ export function Logout() {
   secureLocalStorage.setItem("user_token", "");
   return { status: 200 };
 }
+
+export function Post(e: Event) {
+  try {
+    if (!e) return;
+    const formData = new FormData(e.target as any);
+
+    const post = {
+      title: formData.get("title"),
+      author: formData.get("author"),
+      content: formData.get("content"),
+    };
+
+    fetch("/api/post", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(post),
+    }).then((res) =>
+      res.json().then((data) => {
+        switch (data.status) {
+          case 404:
+            return "Unexpected Error";
+          case 200:
+            return 200;
+          case 500:
+            return "Unexpected Error";
+        }
+      })
+    );
+  } catch (error) {
+    console.error(error);
+    return;
+  }
+}
